@@ -1,0 +1,29 @@
+{
+    "name": "sitedyno/irc-format-stripper",
+    "description": "Strips irc formatters from a string",
+    "keywords": [ "irc", "format", "color" ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Heath Nail",
+            "email": "sitedyno@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "~4",
+        "phpdocumentor/phpdocumentor": "^2.8",
+        "squizlabs/php_codesniffer": "^2.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sitedyno\\Irc\\Format\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sitedyno\\Irc\\Format\\Tests\\": "tests"
+        }
+    }
+}
