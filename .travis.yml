@@ -19,5 +19,5 @@ script:
   - if [[ $PHPCS = 1 ]]; then ./vendor/bin/phpunit --coverage-clover=clover.xml; else ./vendor/bin/phpunit; fi
   - if [[ $PHPCS = 1 ]]; then ./vendor/bin/phpcs --standard=PSR1,PSR2 src/; fi
   - if [[ $PHPCS = 1 ]]; then ./vendor/bin/phpcs --standard=PSR1,PSR2 tests/; fi
-  - if [[ $PHPCS = 1 ]]; then bash <(curl -s https://codecov.io/bash)
+  - if [[ $PHPCS = 1 ]]; then bash <(curl -s https://codecov.io/bash); fi
 
