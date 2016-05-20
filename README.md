@@ -1,5 +1,6 @@
 # sitedyno/irc-format-stripper
 [![Build Status](https://secure.travis-ci.org/sitedyno/irc-format-stripper.png?branch=master)](https://travis-ci.org/sitedyno/irc-format-stripper)
+[![Coverate Status](https://img.shields.io/codecov/c/github/sitedyno/irc-format-stripper.svg?style=flat-square)](https://codecov.io/github/sitedyno/irc-format-stripper)
 
 Library to strip IRC format codes from strings.
 
