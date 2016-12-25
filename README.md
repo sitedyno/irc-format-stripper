@@ -17,14 +17,40 @@ There is no configuration at the moment.
 ## Usage Example
 
 ```php
-use Sitedyno\Irc\Format;
+use Sitedyno\Irc\Format\Stripper;
 
+$stripper = new Stripper;
 $testMessage = "\x0301This text is black in IRC";
-$strippedMessage = new (Stripper)->strip($testMessage);
+echo $testMessage;
+// Outputs: 01This text is black in IRC
+$strippedMessage = $stripper->strip($testMessage);
 echo $strippedMessage;
 // Outputs: This text is black in IRC
 ```
+## Monolog Processor Example
 
+```php
+use Sitedyno\Irc\Format\Stripper;
+
+$stripper = new Stripper;
+$testMessage = "\x0301This text is black in IRC";
+echo $testMessage;
+// Outputs: 01This text is black in IRC
+$streamHandler = new \Monolog\Handler\StreamHandler(
+    'mylog.log',
+    \Monolog\Logger::DEBUG
+);
+$logger = new \Monolog\Logger(
+    'mylog',
+    [$streamHandler]
+);
+$logger->pushProcessor(function($record) use ($stripper) {
+    $record['message'] = $stripper->strip($record['message']);
+    return $record;
+});
+$logger->info($testMessage);
+// Outputs to mylog.log: [2016-12-25 22:00:52] mylog.INFO This text is black in IRC
+```
 ## Testing
 
 To run the unit test suite:
