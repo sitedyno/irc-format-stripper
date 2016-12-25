@@ -43,7 +43,7 @@ class StripperTest extends PHPUnit_Framework_TestCase
      */
     public function testStripEasyReplacements($message, $result)
     {
-        $this->assertSame($this->stripper->strip($message), $result);
+        $this->assertSame($result, $this->stripper->strip($message));
     }
 
     /**
@@ -64,7 +64,7 @@ class StripperTest extends PHPUnit_Framework_TestCase
      */
     public function testStripNoComma($message, $result)
     {
-        $this->assertSame($this->stripper->strip($message), $result);
+        $this->assertSame($result, $this->stripper->strip($message));
     }
 
     /**
@@ -84,7 +84,7 @@ class StripperTest extends PHPUnit_Framework_TestCase
      */
     public function testStripCommaAsFirstCharacter($message, $result)
     {
-        $this->assertSame($this->stripper->strip($message), $result);
+        $this->assertSame($result, $this->stripper->strip($message));
     }
 
     /**
@@ -105,7 +105,7 @@ class StripperTest extends PHPUnit_Framework_TestCase
      */
     public function testStripCommaAsSecondCharacter($message, $result)
     {
-        $this->assertSame($this->stripper->strip($message), $result);
+        $this->assertSame($result, $this->stripper->strip($message));
     }
 
     /**
@@ -128,6 +128,45 @@ class StripperTest extends PHPUnit_Framework_TestCase
      */
     public function testStripCommaAsThirdCharacter($message, $result)
     {
-        $this->assertSame($this->stripper->strip($message), $result);
+        $this->assertSame($result, $this->stripper->strip($message));
+    }
+
+    /**
+     * Code at end of line provider
+     */
+    public function codeAtEndOfLineProvider()
+    {
+        // Easy replacements
+        yield ["some text\x02", "some text"];
+        yield ["some text\x09", "some text"];
+        yield ["some text\x16", "some text"];
+        yield ["some text\x13", "some text"];
+        yield ["some text\x1F", "some text"];
+        // No comma
+        yield ["some text\x03", "some text"];
+        yield ["some text\x031", "some text"];
+        yield ["some text\x0301", "some text"];
+        // Comma as first character
+        yield ["some text\x03,", "some text,"];
+        yield ["some text\x03,1", "some text"];
+        yield ["some text\x03,01", "some text"];
+        // Comma as second character
+        yield ["some text\x031,", "some text,"];
+        yield ["some text\x031,1", "some text"];
+        yield ["some text\x031,01", "some text"];
+        // Comma as third character
+        yield ["some text\x0301,", "some text,"];
+        yield ["some text\x0301,1", "some text"];
+        yield ["some text\x0301,01", "some text"];
+    }
+
+    /**
+     * Test strip function with code at end of line
+     *
+     * @dataProvider codeAtEndOfLineProvider
+     */
+    public function testStripCodeAtEndOfLine($message, $result)
+    {
+        $this->assertSame($result, $this->stripper->strip($message));
     }
 }

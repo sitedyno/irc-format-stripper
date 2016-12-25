@@ -102,35 +102,37 @@ class Stripper
                     $fourth = $i + 4;
                     $fifth  = $i + 5;
                     $split[$i] = '';
-                    if (is_numeric($split[$first]) && is_numeric($split[$second])) {
-                        $split[$first] = $split[$second] = '';
-                        if ("," === $split[$third]) {
-                            if (is_numeric($split[$fourth])) {
-                                $split[$third] = '';
-                                $split[$fourth] = '';
-                                if (is_numeric($split[$fifth])) {
-                                    $split[$fifth] = '';
+                    if (isset($split[$first]) && isset($split[$second])) {
+                        if (is_numeric($split[$first]) && is_numeric($split[$second])) {
+                            $split[$first] = $split[$second] = '';
+                            if (isset($split[$third]) && "," === $split[$third]) {
+                                if (isset($split[$fourth]) && is_numeric($split[$fourth])) {
+                                    $split[$third] = '';
+                                    $split[$fourth] = '';
+                                    if (isset($split[$fifth]) && is_numeric($split[$fifth])) {
+                                        $split[$fifth] = '';
+                                    }
                                 }
                             }
                         }
                     }
-                    if (is_numeric($split[$first])) {
+                    if (isset($split[$first]) && is_numeric($split[$first])) {
                         $split[$first] = '';
-                        if ("," === $split[$second]) {
-                            if (is_numeric($split[$third])) {
+                        if (isset($split[$second]) && "," === $split[$second]) {
+                            if (isset($split[$third]) && is_numeric($split[$third])) {
                                 $split[$second] = '';
                                 $split[$third] = '';
-                                if (is_numeric($split[$fourth])) {
+                                if (isset($split[$fourth]) && is_numeric($split[$fourth])) {
                                     $split[$fourth] = '';
                                 }
                             }
                         }
                     }
-                    if ("," === $split[$first]) {
-                        if (is_numeric($split[$second])) {
+                    if (isset($split[$first]) && "," === $split[$first]) {
+                        if (isset($split[$second]) && is_numeric($split[$second])) {
                             $split[$first] = '';
                             $split[$second] = '';
-                            if (is_numeric($split[$third])) {
+                            if (isset($split[$third]) && is_numeric($split[$third])) {
                                 $split[$third] = '';
                             }
                         }
